@@ -44,7 +44,7 @@ Simple string value that can convert to bool, int, float, etc. easily.
 
     // create from map
     m := map[string]string{"foo": "bar"}
-    vs := FromMap(m)
+    vs := values.FromMap(m)
 
     // convert to map
     vs.ToMap()
