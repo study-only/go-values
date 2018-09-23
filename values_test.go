@@ -34,7 +34,7 @@ func TestValues_Defined(t *testing.T) {
 	}
 }
 
-func TestValues_Match(t *testing.T) {
+func TestValues_HasMatch(t *testing.T) {
 	m := new(sync.Map)
 	m.Store("foo", "bar")
 	m.Store("earth", "moon")
@@ -42,19 +42,19 @@ func TestValues_Match(t *testing.T) {
 		values: m,
 	}
 
-	if !values.Contains("foo", "bar") {
+	if !values.HasMatch("foo", "bar") {
 		t.Errorf("unexpected unmatch")
 	}
-	if !values.Contains("earth", "moon") {
+	if !values.HasMatch("earth", "moon") {
 		t.Errorf("unexpected unmatch")
 	}
-	if values.Contains("foo", "moon") {
+	if values.HasMatch("foo", "moon") {
 		t.Errorf("unexpected match")
 	}
-	if values.Contains("earth", "human") {
+	if values.HasMatch("earth", "human") {
 		t.Errorf("unexpected match")
 	}
-	if values.Contains("mars", "jupiter") {
+	if values.HasMatch("mars", "jupiter") {
 		t.Errorf("unexpected match")
 	}
 }

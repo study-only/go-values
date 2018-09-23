@@ -28,7 +28,7 @@ func (vs Values) Defined(key string) bool {
 	}
 }
 
-func (vs Values) Contains(key string, value string) bool {
+func (vs Values) HasMatch(key string, value Value) bool {
 	if vs.values == nil {
 		return false
 	}
@@ -36,7 +36,7 @@ func (vs Values) Contains(key string, value string) bool {
 	found := false
 	vs.values.Range(func(rawKey, rawValue interface{}) bool {
 		if k, ok := rawKey.(string); ok && k == key {
-			if v, ok := rawValue.(string); ok && v == value {
+			if v, ok := rawValue.(string); ok && v == value.String() {
 				found = true
 				return false
 			} else {

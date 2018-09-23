@@ -66,6 +66,6 @@ Simple string value that can convert to bool, int, float, etc. easily.
     m = map[string]string{"bar": "foo", "moon":"earth"}
     vs.Sets(m)
 
-    // check contains
-    vs.Contains("foo", "bar")
+    // check match
+    vs.HasMatch("foo", "bar")
 ```
