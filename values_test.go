@@ -18,22 +18,6 @@ func Test_FromMap(t *testing.T) {
 	}
 }
 
-func TestValues_Exists(t *testing.T) {
-	m := sync.Map{}
-	m.Store("foo", Value("bar"))
-	values := Values{
-		values: m,
-	}
-
-	if !values.Exists("foo") {
-		t.Errorf("got undefined for defiend")
-	}
-
-	if values.Exists("puppy") {
-		t.Errorf("got defined for undefiend")
-	}
-}
-
 func TestValues_Get(t *testing.T) {
 	m := sync.Map{}
 	m.Store("foo", Value("bar"))
@@ -41,7 +25,7 @@ func TestValues_Get(t *testing.T) {
 		values: m,
 	}
 
-	if v, _ := values.Get("foo"); v != "bar" {
+	if v, found := values.Get("foo"); !found && v != "bar" {
 		t.Errorf("expected bar, but got %s", v)
 	}
 }
@@ -88,7 +72,7 @@ func TestValues_Delete(t *testing.T) {
 	}
 
 	values.Delete("foo")
-	if values.Exists("foo") {
+	if _, exist := values.Get("foo"); exist {
 		t.Errorf("unexpected exists")
 	}
 }

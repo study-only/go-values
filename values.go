@@ -16,14 +16,6 @@ func FromMap(data map[string]Value) Values {
 	return values
 }
 
-func (vs Values) Exists(key string) bool {
-	if _, exist := vs.values.Load(key); exist {
-		return true
-	} else {
-		return false
-	}
-}
-
 func (vs Values) Get(key string) (v Value, found bool) {
 	raw, exist := vs.values.Load(key)
 	if !exist {

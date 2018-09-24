@@ -58,11 +58,8 @@ A wrapper around string & map[string]string to provide some strong typing and co
     bytes, _ :=json.Marshal(vs)
     json.Unmarshal([]byte(`{"foo":"bar","int":1,"bool":true}`), &vs)
 
-    // check key exists
-    vs.Exists("foo")
-
     // get value
-    vs.Get("foo")
+    value, exists := vs.Get("foo")
 
     // set value
     vs.Set("earth", "moon")
