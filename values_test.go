@@ -7,67 +7,42 @@ import (
 )
 
 func Test_FromMap(t *testing.T) {
-	m := map[string]string{"foo": "bar", "bar": "foo"}
+	m := map[string]Value{"foo": "bar", "bar": "foo"}
 	values := FromMap(m)
 
-	if v := values.Get("foo"); v != "bar" {
-		t.Errorf("expected bar but got, %s", v)
+	if v, _ := values.Get("foo"); v != "bar" {
+		t.Errorf("expected bar, but got %s", v)
 	}
-	if v := values.Get("bar"); v != "foo" {
-		t.Errorf("expected foo but got, %s", v)
+	if v, _ := values.Get("bar"); v != "foo" {
+		t.Errorf("expected foo, but got %s", v)
 	}
 }
 
-func TestValues_Defined(t *testing.T) {
-	m := new(sync.Map)
-	m.Store("foo", "bar")
+func TestValues_Exists(t *testing.T) {
+	m := sync.Map{}
+	m.Store("foo", Value("bar"))
 	values := Values{
 		values: m,
 	}
 
-	if !values.Defined("foo") {
+	if !values.Exists("foo") {
 		t.Errorf("got undefined for defiend")
 	}
 
-	if values.Defined("puppy") {
+	if values.Exists("puppy") {
 		t.Errorf("got defined for undefiend")
 	}
 }
 
-func TestValues_HasMatch(t *testing.T) {
-	m := new(sync.Map)
-	m.Store("foo", "bar")
-	m.Store("earth", "moon")
-	values := Values{
-		values: m,
-	}
-
-	if !values.HasMatch("foo", "bar") {
-		t.Errorf("unexpected unmatch")
-	}
-	if !values.HasMatch("earth", "moon") {
-		t.Errorf("unexpected unmatch")
-	}
-	if values.HasMatch("foo", "moon") {
-		t.Errorf("unexpected match")
-	}
-	if values.HasMatch("earth", "human") {
-		t.Errorf("unexpected match")
-	}
-	if values.HasMatch("mars", "jupiter") {
-		t.Errorf("unexpected match")
-	}
-}
-
 func TestValues_Get(t *testing.T) {
-	m := new(sync.Map)
-	m.Store("foo", "bar")
+	m := sync.Map{}
+	m.Store("foo", Value("bar"))
 	values := Values{
 		values: m,
 	}
 
-	if v := values.Get("foo"); v != "bar" {
-		t.Errorf("expected bar but got, %s", v)
+	if v, _ := values.Get("foo"); v != "bar" {
+		t.Errorf("expected bar, but got %s", v)
 	}
 }
 
@@ -75,34 +50,84 @@ func TestValues_Set(t *testing.T) {
 	values := Values{}
 	values.Set("foo", "bar")
 
-	if v := values.Get("foo"); v != "bar" {
-		t.Errorf("expected bar but got, %s", v)
+	if v, _ := values.Get("foo"); v != "bar" {
+		t.Errorf("expected bar, but got %s", v)
 	}
 }
 
 func TestValues_Sets(t *testing.T) {
-	m := map[string]string{"foo": "bar", "bar": "foo"}
+	m := map[string]Value{"foo": "bar", "bar": "foo"}
 	values := Values{}
 
 	values.Sets(m)
-	if v := values.Get("foo"); v != "bar" {
-		t.Errorf("expected bar but got, %s", v)
+	if v, _ := values.Get("foo"); v != "bar" {
+		t.Errorf("expected bar, but got %s", v)
 	}
-	if v := values.Get("bar"); v != "foo" {
-		t.Errorf("expected foo but got, %s", v)
+	if v, _ := values.Get("bar"); v != "foo" {
+		t.Errorf("expected foo, but got %s", v)
 	}
 
-	m2 := map[string]string{"earth": "moon"}
+	m2 := map[string]Value{"earth": "moon"}
 	values.Sets(m2)
-	if v := values.Get("foo"); v != "bar" {
-		t.Errorf("expected bar but got, %s", v)
+	if v, _ := values.Get("foo"); v != "bar" {
+		t.Errorf("expected bar, but got %s", v)
 	}
-	if v := values.Get("bar"); v != "foo" {
-		t.Errorf("expected foo but got, %s", v)
+	if v, _ := values.Get("bar"); v != "foo" {
+		t.Errorf("expected foo, but got %s", v)
 	}
-	if v := values.Get("earth"); v != "moon" {
-		t.Errorf("expected moon but got, %s", v)
+	if v, _ := values.Get("earth"); v != "moon" {
+		t.Errorf("expected moon, but got %s", v)
 	}
+}
+
+func TestValues_Delete(t *testing.T) {
+	m := sync.Map{}
+	m.Store("foo", Value("bar"))
+	values := Values{
+		values: m,
+	}
+
+	values.Delete("foo")
+	if values.Exists("foo") {
+		t.Errorf("unexpected exists")
+	}
+}
+
+func TestValues_ToMap(t *testing.T) {
+	m := sync.Map{}
+	m.Store("foo", Value("bar"))
+	values := Values{
+		values: m,
+	}
+
+	vm := values.ToMap()
+	if vm["foo"] != "bar"{
+		t.Errorf("expected bar, but got %s", vm["foo"])
+	}
+}
+
+func TestValues_Range(t *testing.T) {
+	m := sync.Map{}
+	m.Store("foo", Value("bar"))
+	m.Store("earth", Value("moon"))
+	values := Values{
+		values: m,
+	}
+
+	values.Range(func(key string, value Value) bool {
+		if key != "foo" && key != "earth" {
+			t.Errorf("upecxtected key: %s", key)
+		}
+
+		if key == "foo" && value != "bar" {
+			t.Errorf("upecxtected key value: %s, %s", key, value)
+		}
+		if key == "earth" && value != "moon" {
+			t.Errorf("upecxtected key value: %s, %s", key, value)
+		}
+
+		return true
+	})
 }
 
 func TestValues_MarshalJSON(t *testing.T) {
@@ -127,19 +152,19 @@ func TestValues_UnmarshalJSON(t *testing.T) {
 	if err := json.Unmarshal([]byte(bytes), &values); err != nil {
 		t.Errorf("unmarshal error: %s", err.Error())
 	}
-	if v := values.Get("foo"); v != "bar" {
+	if v, _ := values.Get("foo"); v != "bar" {
 		t.Errorf("expected bar, but got %s", v)
 	}
-	if v := values.Get("int").Int(); v != -2018 {
-		t.Errorf("expected -2018, but got %d", v)
+	if v, _ := values.Get("int"); v.Int() != -2018 {
+		t.Errorf("expected -2018, but got %d", v.Int())
 	}
-	if v := values.Get("float").Float64(); v != 3.1415926 {
-		t.Errorf("expected 3.1415926, but got %f", v)
+	if v, _ := values.Get("float"); v.Float64() != 3.1415926 {
+		t.Errorf("expected 3.1415926, but got %f", v.Float64())
 	}
-	if v := values.Get("bool").Bool(); v != true {
-		t.Errorf("expected true, but got %v", v)
+	if v, _ := values.Get("bool"); v.Bool() != true {
+		t.Errorf("expected true, but got %v", v.Bool())
 	}
-	if v := values.Get("null").String(); v != "" {
+	if v, _ := values.Get("null"); v.String() != "" {
 		t.Errorf("expected empty, but got %v", v)
 	}
 }

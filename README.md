@@ -1,6 +1,11 @@
 # Values
 
-Simple string value that can convert to bool, int, float, etc. easily.
+A wrapper around string & map[string]string to provide some strong typing and concurrency safety.
+
+## Install
+```bash
+    go get github.com/liamylian/values
+```
 
 ## Usage
 
@@ -43,7 +48,7 @@ Simple string value that can convert to bool, int, float, etc. easily.
     import "github.com/liamylian/values"
 
     // create from map
-    m := map[string]string{"foo": "bar"}
+    m := map[string]Value{"foo": "bar"}
     vs := values.FromMap(m)
 
     // convert to map
@@ -54,18 +59,24 @@ Simple string value that can convert to bool, int, float, etc. easily.
     json.Unmarshal([]byte(`{"foo":"bar","int":1,"bool":true}`), &vs)
 
     // check key exists
-    vs.Defined("foo")
+    vs.Exists("foo")
 
     // get value
     vs.Get("foo")
 
     // set value
     vs.Set("earth", "moon")
+    
+    // delete value
+    vs.Delete("foo")
 
     // set values
-    m = map[string]string{"bar": "foo", "moon":"earth"}
+    m = map[string]Value{"bar": "foo", "moon":"earth"}
     vs.Sets(m)
-
-    // check match
-    vs.HasMatch("foo", "bar")
+    
+    // range
+    vs.Range(func(key string, value Value) bool {
+        fmt.Println("%s: %s", key, value)
+    	return true
+    })
 ```
