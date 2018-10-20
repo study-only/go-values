@@ -27,98 +27,98 @@ func TestValue_String(t *testing.T) {
 }
 
 func TestValue_Int(t *testing.T) {
-	if Value("-2018").Int() != -2018 {
+	if v, _ := Value("-2018").Int(); v != -2018 {
 		t.Error("wrong int")
 	}
 }
 
 func TestValue_Uint(t *testing.T) {
-	if Value("1988").Uint() != 1988 {
+	if v, _ := Value("1988").Uint(); v != 1988 {
 		t.Error("wrong int")
 	}
 }
 
 func TestValue_Int8(t *testing.T) {
-	if Value("-100").Int8() != -100 {
+	if v, _ := Value("-100").Int8(); v != -100 {
 		t.Error("wrong int64")
 	}
 }
 
 func TestValue_Uint8(t *testing.T) {
-	if Value("100").Uint8() != 100 {
+	if v, _ := Value("100").Uint8(); v != 100 {
 		t.Error("wrong int64")
 	}
 }
 
 func TestValue_Int16(t *testing.T) {
-	if Value("-2018").Int16() != -2018 {
+	if v, _ := Value("-2018").Int16(); v != -2018 {
 		t.Error("wrong int64")
 	}
 }
 
 func TestValue_Uint16(t *testing.T) {
-	if Value("1988").Uint16() != 1988 {
+	if v, _ := Value("1988").Uint16(); v != 1988 {
 		t.Error("wrong int64")
 	}
 }
 
 func TestValue_Int32(t *testing.T) {
-	if Value("-2018").Int32() != -2018 {
+	if v, _ := Value("-2018").Int32(); v != -2018 {
 		t.Error("wrong int64")
 	}
 }
 
 func TestValue_Uint32(t *testing.T) {
-	if Value("1988").Uint32() != 1988 {
+	if v, _ := Value("1988").Uint32(); v != 1988 {
 		t.Error("wrong int64")
 	}
 }
 
 func TestValue_Int64(t *testing.T) {
-	if Value("-2018").Int64() != -2018 {
+	if v, _ := Value("-2018").Int64(); v != -2018 {
 		t.Error("wrong int64")
 	}
 }
 
 func TestValue_Uint64(t *testing.T) {
-	if Value("1988").Uint64() != 1988 {
+	if v, _ := Value("1988").Uint64(); v != 1988 {
 		t.Error("wrong int64")
 	}
 }
 
 func TestValue_Bool(t *testing.T) {
-	if Value("").Bool() {
+	if v, _ := Value("").Bool(); v {
 		t.Error("true for empty value")
 	}
 
-	if !Value("1").Bool() {
+	if v, _ := Value("1").Bool(); !v {
 		t.Error("wrong bool")
 	}
-	if !Value("t").Bool() {
+	if v, _ := Value("t").Bool(); !v {
 		t.Error("wrong bool")
 	}
-	if !Value("T").Bool() {
+	if v, _ := Value("T").Bool(); !v {
 		t.Error("wrong bool")
 	}
-	if !Value("true").Bool() {
+	if v, _ := Value("true").Bool(); !v {
 		t.Error("wrong bool")
 	}
-	if !Value("TRUE").Bool() {
+	if v, _ := Value("TRUE").Bool(); !v {
 		t.Error("wrong bool")
 	}
-	if !Value("True").Bool() {
+	if v, _ := Value("True").Bool(); !v {
 		t.Error("wrong bool")
 	}
 }
 
 func TestValue_Float32(t *testing.T) {
-	if Value("3.1415926").Float32() != 3.1415926 {
+	if v, _ := Value("3.1415926").Float32(); v != 3.1415926 {
 		t.Error("wrong float")
 	}
 }
 
 func TestValue_Float64(t *testing.T) {
-	if Value("-3.1415926").Float64() != -3.1415926 {
+	if v, _ := Value("-3.1415926").Float64(); v != -3.1415926 {
 		t.Error("wrong float")
 	}
 }

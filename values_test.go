@@ -139,14 +139,18 @@ func TestValues_UnmarshalJSON(t *testing.T) {
 	if v, _ := values.Get("foo"); v != "bar" {
 		t.Errorf("expected bar, but got %s", v)
 	}
-	if v, _ := values.Get("int"); v.Int() != -2018 {
-		t.Errorf("expected -2018, but got %d", v.Int())
+
+	v, _ := values.Get("int")
+	if i, _ := v.Int(); i != -2018 {
+		t.Errorf("expected -2018, but got %d", i)
 	}
-	if v, _ := values.Get("float"); v.Float64() != 3.1415926 {
-		t.Errorf("expected 3.1415926, but got %f", v.Float64())
+	v, _ = values.Get("float")
+	if f, _ := v.Float64(); f != 3.1415926 {
+		t.Errorf("expected 3.1415926, but got %f", f)
 	}
-	if v, _ := values.Get("bool"); v.Bool() != true {
-		t.Errorf("expected true, but got %v", v.Bool())
+	v, _ = values.Get("bool")
+	if b, _ := v.Bool(); b != true {
+		t.Errorf("expected true, but got %v", b)
 	}
 	if v, _ := values.Get("null"); v.String() != "" {
 		t.Errorf("expected empty, but got %v", v)

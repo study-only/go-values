@@ -21,80 +21,70 @@ func (v Value) String() string {
 	return string(v)
 }
 
-func (v Value) Int() int {
-	num, _ := strconv.Atoi(string(v))
-
-	return num
+func (v Value) Int() (int, error) {
+	return strconv.Atoi(string(v))
 }
 
-func (v Value) Uint() uint {
-	num, _ := strconv.ParseUint(string(v), 10, 0)
+func (v Value) Uint() (uint, error) {
+	num, err := strconv.ParseUint(string(v), 10, 0)
 
-	return uint(num)
+	return uint(num), err
 }
 
-func (v Value) Int8() int8 {
-	num, _ := strconv.ParseInt(string(v), 10, 8)
+func (v Value) Int8() (int8, error) {
+	num, err := strconv.ParseInt(string(v), 10, 8)
 
-	return int8(num)
+	return int8(num), err
 }
 
-func (v Value) Uint8() uint8 {
-	num, _ := strconv.ParseUint(string(v), 10, 8)
+func (v Value) Uint8() (uint8, error) {
+	num, err := strconv.ParseUint(string(v), 10, 8)
 
-	return uint8(num)
+	return uint8(num), err
 }
 
-func (v Value) Int16() int16 {
-	num, _ := strconv.ParseInt(string(v), 10, 16)
+func (v Value) Int16() (int16, error) {
+	num, err := strconv.ParseInt(string(v), 10, 16)
 
-	return int16(num)
+	return int16(num), err
 }
 
-func (v Value) Uint16() uint16 {
-	num, _ := strconv.ParseUint(string(v), 10, 16)
+func (v Value) Uint16() (uint16, error) {
+	num, err := strconv.ParseUint(string(v), 10, 16)
 
-	return uint16(num)
+	return uint16(num), err
 }
 
-func (v Value) Int32() int32 {
-	num, _ := strconv.ParseInt(string(v), 10, 32)
+func (v Value) Int32() (int32, error) {
+	num, err := strconv.ParseInt(string(v), 10, 32)
 
-	return int32(num)
+	return int32(num), err
 }
 
-func (v Value) Uint32() uint32 {
-	num, _ := strconv.ParseUint(string(v), 10, 32)
+func (v Value) Uint32() (uint32, error) {
+	num, err := strconv.ParseUint(string(v), 10, 32)
 
-	return uint32(num)
+	return uint32(num), err
 }
 
-func (v Value) Int64() int64 {
-	num, _ := strconv.ParseInt(string(v), 10, 64)
-
-	return num
+func (v Value) Int64() (int64, error) {
+	return strconv.ParseInt(string(v), 10, 64)
 }
 
-func (v Value) Uint64() uint64 {
-	num, _ := strconv.ParseUint(string(v), 10, 64)
-
-	return num
+func (v Value) Uint64() (uint64, error) {
+	return strconv.ParseUint(string(v), 10, 64)
 }
 
-func (v Value) Bool() bool {
-	b, _ := strconv.ParseBool(string(v))
-
-	return b
+func (v Value) Bool() (bool, error) {
+	return strconv.ParseBool(string(v))
 }
 
-func (v Value) Float32() float32 {
-	num, _ := strconv.ParseFloat(string(v), 32)
+func (v Value) Float32() (float32, error) {
+	num, err := strconv.ParseFloat(string(v), 32)
 
-	return float32(num)
+	return float32(num), err
 }
 
-func (v Value) Float64() float64 {
-	num, _ := strconv.ParseFloat(string(v), 64)
-
-	return num
+func (v Value) Float64() (float64, error) {
+	return strconv.ParseFloat(string(v), 64)
 }
