@@ -1,9 +1,9 @@
 package values
 
 import (
-	"sync"
 	"encoding/json"
 	"strconv"
+	"sync"
 )
 
 type Values struct {

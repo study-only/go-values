@@ -6,6 +6,10 @@ import (
 
 type Value string
 
+func NewValue(val string) Value {
+	return Value(val)
+}
+
 func (v Value) IsEmpty() bool {
 	return v == ""
 }

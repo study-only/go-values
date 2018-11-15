@@ -1,9 +1,9 @@
 package values
 
 import (
-	"testing"
 	"encoding/json"
 	"sync"
+	"testing"
 )
 
 func Test_FromMap(t *testing.T) {
@@ -85,7 +85,7 @@ func TestValues_ToMap(t *testing.T) {
 	}
 
 	vm := values.ToMap()
-	if vm["foo"] != "bar"{
+	if vm["foo"] != "bar" {
 		t.Errorf("expected bar, but got %s", vm["foo"])
 	}
 }
