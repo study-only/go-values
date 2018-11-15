@@ -48,29 +48,29 @@ A wrapper around string & map[string]string to provide some strong typing and co
 
     var v Strict
 
-	// is nil
-	v = NewStrict(nil)
-	b := v.IsNil()
+    // is nil
+    v = NewStrict(nil)
+    b := v.IsNil()
 
-	// default value
-	v = NewStrict(nil)
-	i := v.IfNil("abc").Interface()
+    // default value
+    v = NewStrict(nil)
+    i := v.IfNil("abc").Interface()
 
-	// retrieve value
-	s, ok := v.MustString()
-	b, ok := v.MustBool()
-	f32, ok := v.MustFloat32()
-	f64, ok := v.MustFloat64()
-	i, ok := v.MustInt()
-	u, ok := v.MustUint()
-	i8, ok := v.MustInt8()
-	ui8, ok := v.MustUint8()
-	i16, ok := v.MustInt16()
-	u16, ok := v.MustUint16()
-	i32, ok := v.MustInt32()
-	u32, ok := v.MustUint32()
-	i64, ok := v.MustInt64()
-	u64, ok := v.MustUint64()
+    // retrieve value
+    s, ok := v.MustString()
+    b, ok := v.MustBool()
+    f32, ok := v.MustFloat32()
+    f64, ok := v.MustFloat64()
+    i, ok := v.MustInt()
+    u, ok := v.MustUint()
+    i8, ok := v.MustInt8()
+    ui8, ok := v.MustUint8()
+    i16, ok := v.MustInt16()
+    u16, ok := v.MustUint16()
+    i32, ok := v.MustInt32()
+    u32, ok := v.MustUint32()
+    i64, ok := v.MustInt64()
+    u64, ok := v.MustUint64()
 ```
 ### Values
 
