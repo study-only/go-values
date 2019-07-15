@@ -4,7 +4,7 @@ A wrapper around string & map[string]string to provide some strong typing and co
 
 ## Install
 ```bash
-    go get github.com/liamylian/values
+    go get github.com/study-only/values
 ```
 
 ## Usage
@@ -12,7 +12,7 @@ A wrapper around string & map[string]string to provide some strong typing and co
 ### Value
 
 ```go
-    import "github.com/liamylian/values"
+    import "github.com/study-only/values"
 
     var v values.Value
 
@@ -44,7 +44,7 @@ A wrapper around string & map[string]string to provide some strong typing and co
 
 ### Strict
 ```go
-    import "github.com/liamylian/values"
+    import "github.com/study-only/values"
 
     var v Strict
 
@@ -75,7 +75,7 @@ A wrapper around string & map[string]string to provide some strong typing and co
 ### Values
 
 ```go
-    import "github.com/liamylian/values"
+    import "github.com/study-only/values"
 
     // create from map
     m := map[string]Value{"foo": "bar"}
